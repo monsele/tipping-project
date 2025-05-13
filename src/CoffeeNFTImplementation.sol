@@ -10,6 +10,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * @dev Implementation contract for coffee-themed NFTs
  */
 contract CoffeeNFTImplementation is ERC1155, Ownable {
+    
+   
     using Strings for uint256;
     
     address public platformFeeReceiver;
@@ -30,10 +32,10 @@ contract CoffeeNFTImplementation is ERC1155, Ownable {
     event CoffeeMinted(address indexed sender, address indexed creator, uint256 tokenId, uint256 amount);
     
     // This constructor will only be called once during deployment of the implementation contract
-    constructor() ERC1155("") {
-        platformFeeReceiver = msg.sender;
+  constructor(string memory _uri) ERC1155(_uri) Ownable(msg.sender) {
+        //https://myapp.com/{tokenId}
+        _setURI(_uri);
     }
-    
     // This function is called by the proxy contract during initialization
     function initialize(
         string memory _name,
